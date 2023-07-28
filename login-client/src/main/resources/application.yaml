@@ -1,0 +1,28 @@
+server.port: 8000
+
+logging:
+  level.org.springframework:
+    security: TRACE
+    web.client: DEBUG
+
+spring:
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          auth-client:
+            client-id: auth-client-id
+            client-secret: "secret"
+            clientAuthenticationMethod: client_secret_basic
+            authorization-grant-type: authorization_code
+            redirect-uri: http://auth-client.poc.com:8000/login/oauth2/code/auth-client-poc
+            scope: openid
+        provider:
+          auth-client:
+            authorization-uri: http://auth-server.poc.com:9000/oauth2/authorize
+            token-uri: http://auth-server.poc.com:9000/oauth2/token
+            jwk-set-uri: http://auth-server.poc.com:9000/oauth2/jwks
+            user-info-uri: http://auth-server.poc.com:9000/userinfo
+            user-name-attribute: sub
